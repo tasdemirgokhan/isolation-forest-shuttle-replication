@@ -1,0 +1,545 @@
+{
+  "dataset": {
+    "n": 49097,
+    "d": 9,
+    "anomalies": 3511,
+    "anomaly_pct": 7.151149764751411,
+    "anomaly_classes": [
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "class_sizes": {
+      "2": 50,
+      "3": 171,
+      "5": 3267,
+      "6": 10,
+      "7": 13
+    },
+    "removed_class": 4
+  },
+  "settings": {
+    "t": 100,
+    "psi": 256,
+    "height_limit": 8,
+    "k_orca": 5,
+    "N_orca": 6137,
+    "orca_block": 1000,
+    "orca_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "k_lof": 10,
+    "lof_params": {
+      "algorithm": "auto",
+      "contamination": "auto",
+      "leaf_size": "30",
+      "metric": "minkowski",
+      "metric_params": "None",
+      "n_jobs": "None",
+      "n_neighbors": "10",
+      "novelty": "False",
+      "p": "2"
+    },
+    "n_runs": 10,
+    "sweep_runs": 5,
+    "k_big": 5000,
+    "fast": false
+  },
+  "parameters": [
+    {
+      "method": "data",
+      "parameter": "rows n / attributes d",
+      "value": "49097 / 9",
+      "source": "Table 2"
+    },
+    {
+      "method": "data",
+      "parameter": "anomaly classes",
+      "value": "[2, 3, 5, 6, 7]",
+      "source": "Table 2"
+    },
+    {
+      "method": "data",
+      "parameter": "class removed",
+      "value": "4",
+      "source": "derived from Table 2 (Step 3)"
+    },
+    {
+      "method": "data",
+      "parameter": "train/test split",
+      "value": "none: all n points fitted and scored",
+      "source": "Section 5.1"
+    },
+    {
+      "method": "iForest",
+      "parameter": "number of trees t",
+      "value": "100",
+      "source": "Section 4.1 default"
+    },
+    {
+      "method": "iForest",
+      "parameter": "sub-sampling size psi",
+      "value": "256",
+      "source": "Section 4.1 default"
+    },
+    {
+      "method": "iForest",
+      "parameter": "height limit l",
+      "value": "ceil(log2 psi) = 8",
+      "source": "Algorithm 1"
+    },
+    {
+      "method": "iForest",
+      "parameter": "sub-sampling",
+      "value": "without replacement, new sample per tree",
+      "source": "Section 3"
+    },
+    {
+      "method": "iForest",
+      "parameter": "split attribute",
+      "value": "uniform over attributes that vary in the node",
+      "source": "Algorithm 2 (Step 5)"
+    },
+    {
+      "method": "iForest",
+      "parameter": "split value",
+      "value": "uniform in [min, max] of that attribute",
+      "source": "Algorithm 2"
+    },
+    {
+      "method": "iForest",
+      "parameter": "c(n) for n <= 2",
+      "value": "c(1)=0, c(2)=1",
+      "source": "exact harmonic numbers (Step 4)"
+    },
+    {
+      "method": "iForest",
+      "parameter": "attribute scaling",
+      "value": "none (raw attributes)",
+      "source": "not needed by the method"
+    },
+    {
+      "method": "iForest",
+      "parameter": "random seeds",
+      "value": "0..9",
+      "source": "ours"
+    },
+    {
+      "method": "ORCA",
+      "parameter": "neighbours k",
+      "value": "5",
+      "source": "Section 5"
+    },
+    {
+      "method": "ORCA",
+      "parameter": "outliers reported N",
+      "value": "n/8 = 6137",
+      "source": "Section 5"
+    },
+    {
+      "method": "ORCA",
+      "parameter": "score",
+      "value": "mean distance to the k nearest neighbours",
+      "source": "Bay & Schwabacher 2003"
+    },
+    {
+      "method": "ORCA",
+      "parameter": "block size",
+      "value": "1000",
+      "source": "ours (affects time only)"
+    },
+    {
+      "method": "ORCA",
+      "parameter": "attribute scaling",
+      "value": "standardised, raw",
+      "source": "dprep scaling not given in paper"
+    },
+    {
+      "method": "ORCA",
+      "parameter": "random seeds (scan order)",
+      "value": "0..9",
+      "source": "ours"
+    },
+    {
+      "method": "LOF",
+      "parameter": "neighbours k",
+      "value": "10",
+      "source": "Section 5"
+    },
+    {
+      "method": "LOF",
+      "parameter": "attribute scaling",
+      "value": "raw, standardised",
+      "source": "not given in paper"
+    },
+    {
+      "method": "LOF",
+      "parameter": "other settings",
+      "value": "algorithm=auto, contamination=auto, leaf_size=30, metric=minkowski, metric_params=None, n_jobs=None, novelty=False, p=2",
+      "source": "scikit-learn defaults"
+    },
+    {
+      "method": "all",
+      "parameter": "performance measure",
+      "value": "AUC; labels used only to compute it",
+      "source": "Section 5"
+    }
+  ],
+  "iforest": {
+    "auc_mean": 0.9971027168806905,
+    "auc_sd": 0.0009022794884370577,
+    "train_s": 0.03135967060006806,
+    "eval_s": 0.28540902089989684
+  },
+  "sklearn": {
+    "auc_mean": 0.9970392720521122,
+    "auc_sd": 0.0005048077969167333
+  },
+  "orca": {
+    "standardised": {
+      "auc_topN": 0.5900626570243107,
+      "auc_topN_sd": 9.87887905963482e-10,
+      "auc_pruned": 0.6018949913455244,
+      "auc_pruned_sd": 0.004281731621655955,
+      "auc_exact": 0.6310803959847011,
+      "time_s": 7.3434676957997,
+      "pruned": 29722.3,
+      "dist_frac": 0.6160976074474037
+    },
+    "raw": {
+      "auc_topN": 0.60245108562727,
+      "auc_topN_sd": 4.668576288714512e-09,
+      "auc_pruned": 0.6380357776600303,
+      "auc_pruned_sd": 0.0025327056567744696,
+      "auc_exact": 0.6975335197314011,
+      "time_s": 7.459820270699493,
+      "pruned": 29577.6,
+      "dist_frac": 0.6076138830440474
+    }
+  },
+  "lof": {
+    "raw": {
+      "auc": 0.5525463509629837,
+      "time_s": 0.7592209590002312
+    },
+    "standardised": {
+      "auc": 0.5154925967204526,
+      "time_s": 1.5478462499995658
+    }
+  },
+  "comparison": [
+    {
+      "method": "iForest (ours, t=100, psi=256)",
+      "ours": 0.9971027168806905,
+      "sd": 0.0009022794884370577,
+      "paper": 1.0,
+      "same_2dp": true
+    },
+    {
+      "method": "iForest (scikit-learn check)",
+      "ours": 0.9970392720521122,
+      "sd": 0.0005048077969167333,
+      "paper": 1.0,
+      "same_2dp": true
+    },
+    {
+      "method": "ORCA top-N only (standardised)",
+      "ours": 0.5900626570243107,
+      "sd": 9.87887905963482e-10,
+      "paper": 0.6,
+      "same_2dp": false
+    },
+    {
+      "method": "ORCA pruned scores (standardised)",
+      "ours": 0.6018949913455244,
+      "sd": 0.004281731621655955,
+      "paper": 0.6,
+      "same_2dp": true
+    },
+    {
+      "method": "k-NN exact, no pruning (standardised)",
+      "ours": 0.6310803959847011,
+      "sd": null,
+      "paper": 0.6,
+      "same_2dp": false
+    },
+    {
+      "method": "ORCA top-N only (raw)",
+      "ours": 0.60245108562727,
+      "sd": 4.668576288714512e-09,
+      "paper": 0.6,
+      "same_2dp": true
+    },
+    {
+      "method": "ORCA pruned scores (raw)",
+      "ours": 0.6380357776600303,
+      "sd": 0.0025327056567744696,
+      "paper": 0.6,
+      "same_2dp": false
+    },
+    {
+      "method": "k-NN exact, no pruning (raw)",
+      "ours": 0.6975335197314011,
+      "sd": null,
+      "paper": 0.6,
+      "same_2dp": false
+    },
+    {
+      "method": "LOF k=10 (raw)",
+      "ours": 0.5525463509629837,
+      "sd": null,
+      "paper": 0.55,
+      "same_2dp": true
+    },
+    {
+      "method": "LOF k=10 (standardised)",
+      "ours": 0.5154925967204526,
+      "sd": null,
+      "paper": 0.55,
+      "same_2dp": false
+    }
+  ],
+  "times": [
+    {
+      "item": "iForest training",
+      "ours_s": 0.03135967060006806,
+      "paper_s": 0.3
+    },
+    {
+      "item": "iForest scoring",
+      "ours_s": 0.28540902089989684,
+      "paper_s": 2.83
+    },
+    {
+      "item": "iForest total",
+      "ours_s": 0.3167686914999649,
+      "paper_s": 3.13
+    },
+    {
+      "item": "ORCA (standardised, mean per run)",
+      "ours_s": 7.3434676957997,
+      "paper_s": 156.66
+    },
+    {
+      "item": "LOF (raw)",
+      "ours_s": 0.7592209590002312,
+      "paper_s": 7489.74
+    }
+  ],
+  "time_relative_to_iforest": {
+    "ORCA": {
+      "ours": 23.18242898635869,
+      "paper": 50.05111821086262
+    },
+    "LOF": {
+      "ours": 2.3967676710888437,
+      "paper": 2392.888178913738
+    }
+  },
+  "psi_sweep": {
+    "16": [
+      0.990908303269542,
+      0.0020250372940089764
+    ],
+    "32": [
+      0.9944218503227373,
+      0.001682707026128382
+    ],
+    "64": [
+      0.9953186744799888,
+      0.0007158791336173713
+    ],
+    "128": [
+      0.9966996861766173,
+      0.0009278189026351094
+    ],
+    "256": [
+      0.9967682699457152,
+      0.0012236310826790925
+    ],
+    "512": [
+      0.9962501860171509,
+      0.0009298222592983485
+    ],
+    "1024": [
+      0.9945408456925426,
+      0.00120492176446842
+    ],
+    "4096": [
+      0.9900775187153341,
+      0.0013209538656382038
+    ],
+    "16384": [
+      0.9874571938750627,
+      0.0026997611285211956
+    ]
+  },
+  "t_sweep": {
+    "1": [
+      0.9095100583467497,
+      0.06164872432922157
+    ],
+    "5": [
+      0.9839482840518412,
+      0.013147988263562215
+    ],
+    "10": [
+      0.9910941985853812,
+      0.008839241483115389
+    ],
+    "25": [
+      0.9947316631449669,
+      0.0025960646472211273
+    ],
+    "50": [
+      0.9959525585757059,
+      0.002022957894597065
+    ],
+    "100": [
+      0.9967682699457152,
+      0.0012236310826790925
+    ],
+    "200": [
+      0.9972346551954601,
+      0.0002330687430862829
+    ]
+  },
+  "orca_k_sweep": {
+    "5": {
+      "standardised": 0.6310803959847011,
+      "raw": 0.6975335197314011
+    },
+    "10": {
+      "standardised": 0.6476287966258261,
+      "raw": 0.7334208531870859
+    },
+    "50": {
+      "standardised": 0.7279983774818412,
+      "raw": 0.7837138146579777
+    },
+    "150": {
+      "standardised": 0.7966670937350124,
+      "raw": 0.8152160823584039
+    },
+    "500": {
+      "standardised": 0.8633992322741509,
+      "raw": 0.8636618649364473
+    },
+    "1000": {
+      "standardised": 0.9473581053550411,
+      "raw": 0.9581505552248791
+    },
+    "3000": {
+      "standardised": 0.9946712591946268,
+      "raw": 0.9939161442118792
+    }
+  },
+  "orca_N_sweep": {
+    "n/8 (paper)": {
+      "N": 6137,
+      "auc_pruned": 0.6028315337336363,
+      "auc_topN": 0.5900626567119132,
+      "pruned": 29798,
+      "dist_frac": 0.6161409014249533
+    },
+    "n/4": {
+      "N": 12274,
+      "auc_pruned": 0.6179586252621219,
+      "auc_topN": 0.6037567991931845,
+      "pruned": 19274,
+      "dist_frac": 0.7855897742572779
+    },
+    "n/2": {
+      "N": 24548,
+      "auc_pruned": 0.6295077708465636,
+      "auc_topN": 0.6240736177190318,
+      "pruned": 7277,
+      "dist_frac": 0.9379132270048061
+    },
+    "n (no pruning)": {
+      "N": 49097,
+      "auc_pruned": 0.6306763471768497,
+      "auc_topN": 0.6306763471768497,
+      "pruned": 0,
+      "dist_frac": 1.0
+    }
+  },
+  "per_class": {
+    "2": {
+      "size": 50,
+      "recall": {
+        "iForest (psi=256)": 0.58,
+        "k-NN k=5": 1.0,
+        "k-NN k=5000": 0.58
+      }
+    },
+    "3": {
+      "size": 171,
+      "recall": {
+        "iForest (psi=256)": 0.6549707602339181,
+        "k-NN k=5": 1.0,
+        "k-NN k=5000": 0.28654970760233917
+      }
+    },
+    "5": {
+      "size": 3267,
+      "recall": {
+        "iForest (psi=256)": 0.9712274257728803,
+        "k-NN k=5": 0.15273951637588,
+        "k-NN k=5000": 1.0
+      }
+    },
+    "6": {
+      "size": 10,
+      "recall": {
+        "iForest (psi=256)": 0.8,
+        "k-NN k=5": 1.0,
+        "k-NN k=5000": 1.0
+      }
+    },
+    "7": {
+      "size": 13,
+      "recall": {
+        "iForest (psi=256)": 0.5384615384615384,
+        "k-NN k=5": 1.0,
+        "k-NN k=5000": 1.0
+      }
+    }
+  },
+  "per_class_auc": {
+    "iForest (psi=256)": 0.9974092304718667,
+    "k-NN k=5": 0.6310803959847011,
+    "k-NN k=5000": 0.9945994327384412
+  },
+  "paper": {
+    "n": 49097,
+    "d": 9,
+    "anomaly_classes": [
+      2,
+      3,
+      5,
+      6,
+      7
+    ],
+    "anomaly_pct": 7,
+    "iforest": 1.0,
+    "orca": 0.6,
+    "lof": 0.55,
+    "if_train": 0.3,
+    "if_eval": 2.83,
+    "if_total": 3.13,
+    "orca_s": 156.66,
+    "lof_s": 7489.74
+  }
+}
